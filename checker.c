@@ -7,54 +7,25 @@
 #define SOC_MAX 80
 #define CHARGE_RATE_MAX 0.8
 
-typedef enum {
-    OK,
-    TEMPERATURE_OUT_OF_RANGE,
-    SOC_OUT_OF_RANGE,
-    CHARGE_RATE_OUT_OF_RANGE
-} BatteryStatus;
-
-BatteryStatus checkTemperature(float temperature) {
-    if (temperature < TEMPERATURE_MIN || temperature > TEMPERATURE_MAX) {
-        return TEMPERATURE_OUT_OF_RANGE;
-    }
-    return OK;
-}
-
-BatteryStatus checkSoc(float soc) {
-    if (soc < SOC_MIN || soc > SOC_MAX) {
-        return SOC_OUT_OF_RANGE;
-    }
-    return OK;
-}
-
-BatteryStatus checkChargeRate(float chargeRate) {
-    if (chargeRate > CHARGE_RATE_MAX) {
-        return CHARGE_RATE_OUT_OF_RANGE;
-    }
-    return OK;
-}
-
 int batteryIsOk(float temperature, float soc, float chargeRate) {
-    BatteryStatus tempStatus = checkTemperature(temperature);
-    if (tempStatus != OK) {
+    int ok = 1; // Assume everything is OK unless proven otherwise
+
+    if (temperature < TEMPERATURE_MIN || temperature > TEMPERATURE_MAX) {
         printf("Temperature out of range!\n");
-        return 0;
+        ok = 0;
     }
 
-    BatteryStatus socStatus = checkSoc(soc);
-    if (socStatus != OK) {
+    if (soc < SOC_MIN || soc > SOC_MAX) {
         printf("State of Charge out of range!\n");
-        return 0;
+        ok = 0;
     }
 
-    BatteryStatus chargeRateStatus = checkChargeRate(chargeRate);
-    if (chargeRateStatus != OK) {
+    if (chargeRate > CHARGE_RATE_MAX) {
         printf("Charge Rate out of range!\n");
-        return 0;
+        ok = 0;
     }
 
-    return 1;
+    return ok;
 }
 
 int main() {
