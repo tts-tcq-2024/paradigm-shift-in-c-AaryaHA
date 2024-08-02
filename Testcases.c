@@ -1,5 +1,5 @@
 #include <assert.h>
-#include "BMS_check.h"
+#include "battery_check.h"
 #include "Testcases.h"
 
 void testTemperatureBelowLowerLimit() {
