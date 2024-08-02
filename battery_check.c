@@ -1,4 +1,4 @@
-#include "Battery_check.h"
+#include "battery_check.h"
 #include "Temperature_range_check.h"
 #include "SOC_range_check.h"
 #include "ChargeRate_range_check.h"
