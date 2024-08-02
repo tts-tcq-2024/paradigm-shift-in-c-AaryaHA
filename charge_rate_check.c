@@ -1,4 +1,4 @@
-#include "charge_rate_checker.h"
+#include "charge_rate_check.h"
 #include "value_range_check.h"
 #include "warning.h"
 
